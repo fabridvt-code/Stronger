@@ -1,0 +1,47 @@
+# Firebase App Hosting configuration.
+# App Hosting builds this Next.js app and runs it on Cloud Run (SSR + the /api/import
+# route both work). Docs: https://firebase.google.com/docs/app-hosting/configure
+#
+# The defaults below deploy a fully working local-first app immediately. AI import
+# and cloud sync activate when you uncomment the env/secret entries.
+
+runConfig:
+  minInstances: 0        # scale to zero when idle (no cost while unused)
+  maxInstances: 2
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+
+env:
+  # --- AI engine (Gemini) -------------------------------------------------
+  # Non-secret model name is safe to commit.
+  - variable: GEMINI_MODEL
+    value: gemini-2.5-flash
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # The API key MUST be a secret. Create it once, then uncomment this block:
+  #   firebase apphosting:secrets:set GEMINI_API_KEY
+  #   (paste the key from https://aistudio.google.com/apikey)
+  # - variable: GEMINI_API_KEY
+  #   secret: GEMINI_API_KEY
+  #   availability:
+  #     - RUNTIME
+
+  # --- Cloud sync + auth (Firebase / Firestore) --------------------------
+  # The web config is public by design (access is enforced by firestore.rules).
+  # These must be available at BUILD time — they're inlined into the client bundle.
+  # Uncomment and fill in from Firebase console → Project settings → Your apps.
+  # - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+  #   value: YOUR-API-KEY
+  #   availability: [BUILD, RUNTIME]
+  # - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+  #   value: YOUR-PROJECT.firebaseapp.com
+  #   availability: [BUILD, RUNTIME]
+  # - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+  #   value: YOUR-PROJECT
+  #   availability: [BUILD, RUNTIME]
+  # - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+  #   value: YOUR-APP-ID
+  #   availability: [BUILD, RUNTIME]

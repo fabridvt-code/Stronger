@@ -1,0 +1,5 @@
+{
+  "comment": "The delta-pull query (where updatedAt > cursor, order by updatedAt) is served by Firestore's automatic single-field index. No composite indexes required.",
+  "indexes": [],
+  "fieldOverrides": []
+}

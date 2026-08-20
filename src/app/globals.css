@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: theme('colors.base.bg');
+  color: theme('colors.text.DEFAULT');
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Numeric inputs used during training: big, thumb-friendly, no spinners. */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-base-surface border border-base-border;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 min-h-touch font-semibold
+           transition-colors select-none active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-muted;
+  }
+  .btn-ghost {
+    @apply btn bg-base-elevated text-text hover:bg-base-border;
+  }
+  .btn-danger {
+    @apply btn bg-danger/15 text-danger hover:bg-danger/25;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full bg-base-elevated px-2.5 py-1 text-xs text-text-muted;
+  }
+  .input {
+    @apply w-full rounded-xl bg-base-elevated border border-base-border px-3 py-2 text-text
+           placeholder:text-text-faint focus:outline-none focus:border-brand;
+  }
+  .label {
+    @apply text-xs font-medium uppercase tracking-wide text-text-faint;
+  }
+}
